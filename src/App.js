@@ -34,53 +34,72 @@ class App extends Component {
 
   //3 e 4 desafio
 
-  // state = {
-  //   pessoas: ["ítalo","Faud"],
-  //   nick: ""
-  // }
+  state = {
+    pessoas: [""],
+    nick: ""
+  }
+
+  componentDidMount(){
+    if(this.setState({pessoas: JSON.parse(localStorage.getItem("pessoaas"))})){
+      this.setState({pessoas: JSON.parse(localStorage.getItem("pessoaas"))})  
+      console.log(localStorage.getItem("pessoaas"));
+
+    }else{
+      localStorage.setItem("pessoaas",JSON.stringify([]));
+    }
+    
+    
+  }
 
   
-  // handle = () =>{
-  //   const p = this.state.pessoas;
-  //   p.push(this.state.nick);
-  //   this.setState({pessoas: p});
-  // }
+  handle = () =>{
+    let p = this.state.pessoas;
+    p.push(this.state.nick);
+    this.setState({pessoas: p});
+    localStorage.setItem("pessoaas",JSON.stringify(p));
+  }
 
-  // handleChange = (n) =>{
-  //   let nome = n.target.value;
-  //   this.setState({nick: nome});
-  //   console.log(nome);
-  // }
+  handleL = () =>{
+    
+    this.setState({pessoas: []});
+    localStorage.setItem("pessoaas", JSON.stringify([]));
+  }
+
+  handleChange = (n) =>{
+    let nome = n.target.value;
+    this.setState({nick: nome});
+    console.log(nome);
+  }
 
   //Conversor
 
-  state = {
-    valor: 0,
-    cotacao: 3.97,
-    convertido: 0,
-    conversao: false
+  // state = {
+  //   valor: 0,
+  //   cotacao: 3.97,
+  //   convertido: 0,
+  //   conversao: false
 
-  }
+  // }
 
-  handleClick = () =>{
+  // handleClick = () =>{
    
-      let c = this.state.valor*this.state.cotacao;
-      this.setState({convertido: c})
+  //     let c = this.state.valor*this.state.cotacao;
+  //     this.setState({convertido: c})
       
-      console.log(this.state.tag);
+  //     console.log(this.state.tag);
     
-     console.log("Valor"+this.state.convertido)
+  //    console.log("Valor"+this.state.convertido)
     
-  }
+  // }
   
-  handleChange = (campo) =>{
-    this.setState({valor: campo.target.value});
-    console.log(campo.target.value);
+  // handleChange = (campo) =>{
+  //   this.setState({valor: campo.target.value});
+  //   console.log(campo.target.value);
     
-    let c = this.state.valor*this.state.cotacao;
-    this.setState({convertido: c})
+  //   let c = this.state.valor*this.state.cotacao;
+  //   this.setState({convertido: c})
     
-  }
+  // }
   
     
   
@@ -103,26 +122,27 @@ class App extends Component {
       //   </div>
 
       //3 e 4 desafio
-      //   <div className="App">
-      //   <div>
-      //     <input onChange={this.handleChange} type="text" placeholder="Nome aqui"></input>
-      //   <button onClick={this.handle}>Cadastrar</button>
-      //   </div>
-      //   <div>
-      //   <Lista pessoas={this.state.pessoas}></Lista>
-      //   </div>
+        <div className="App">
+        <div>
+          <input onChange={this.handleChange} type="text" placeholder="Nome aqui"></input>
+        <button onClick={this.handle}>Cadastrar</button>
+        <button onClick={this.handleL}>Limpar</button>
+        </div>
+        <div>
+        <Lista pessoas={this.state.pessoas}></Lista>
+        </div>
           
           
           
         
         
-      // </div>
+      </div>
 
       //Desafio Conversor
-      <div className="App">
-        <Conversor vetor={this.state} change={this.handleChange} click={this.handleClick}></Conversor>
-        <h2>{this.state.tag}</h2>
-      </div>
+      // <div className="App">
+      //   <Conversor vetor={this.state} change={this.handleChange} click={this.handleClick}></Conversor>
+      //   <h2>{this.state.tag}</h2>
+      // </div>
     );
   }
 }
